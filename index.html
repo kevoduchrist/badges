@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#20251b">
+  <title>BigEvent's — Badge TOUS EN KAKI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div class="brand">BIG<span>EVENT'S</span></div>
+      <p>GÉNÉRATEUR DE BADGES</p>
+    </header>
+
+    <section class="panel">
+      <div class="intro">
+        <span class="eyebrow">ÉDITION SPÉCIALE</span>
+        <h1>TOUS EN <em>KAKI</em></h1>
+        <p>Crée ton badge personnalisé en quelques secondes.</p>
+      </div>
+
+      <form id="badgeForm">
+        <label for="fullname">Nom et prénom</label>
+        <input id="fullname" name="fullname" type="text" placeholder="Ex. : Abel Pichichi" maxlength="40" required>
+
+        <label for="gender">Sexe / Genre</label>
+        <select id="gender" name="gender" required>
+          <option value="">Choisir</option>
+          <option value="HOMME">Homme</option>
+          <option value="FEMME">Femme</option>
+          <option value="AUTRE">Autre</option>
+        </select>
+
+        <label for="photo">Photo du participant</label>
+        <input id="photo" name="photo" type="file" accept="image/*" required>
+        <small>Choisis une photo nette (JPG, PNG ou WEBP — 8 Mo maximum).</small>
+
+        <button type="submit" class="primary">GÉNÉRER MON BADGE</button>
+      </form>
+
+      <div id="status" class="status" role="status"></div>
+      <div id="result" class="result" hidden>
+        <canvas id="badgeCanvas" width="1200" height="820"></canvas>
+        <button id="downloadBtn" class="download" type="button">TÉLÉCHARGER LE BADGE JPG</button>
+      </div>
+    </section>
+    <footer>© BigEvent's — TOUS EN KAKI</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
