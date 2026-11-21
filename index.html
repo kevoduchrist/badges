@@ -1,1 +1,147 @@
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BigEvent’s – Créez votre badge « J’y serai »</title>
+<style>
+:root{--bg:#f1eee6;--card:#fffdf8;--ink:#1d1b16;--mut:#6b6557;--line:#d9d2c0;--acc:#7a1426}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;line-height:1.5}
+header{padding:28px 20px 8px;text-align:center}
+header h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:2rem}
+header p{margin:6px 0 0;color:var(--mut)}
+main{max-width:1000px;margin:0 auto;padding:20px;display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:28px;align-items:start}
+@media(max-width:780px){main{grid-template-columns:1fr}}
+form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;gap:20px}
+fieldset{border:0;padding:0;margin:0}
+legend,label.t{font-weight:700;margin-bottom:8px;display:block;padding:0}
+input[type=text]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
+input[type=text]:focus-visible,button:focus-visible,.opt:has(input:focus-visible),.file:focus-within{outline:3px solid #c9a227;outline-offset:2px}
+.opts{display:grid;gap:10px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{position:relative;border:2px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;background:#fff;font-weight:700}
+.opt input{position:absolute;opacity:0}
+.opt:has(input:checked){border-color:var(--acc);background:#f9ece9}
+.opt small{display:block;font-weight:400;color:var(--mut)}
+.file{display:block;border:2px dashed var(--line);border-radius:10px;padding:14px;text-align:center;cursor:pointer;background:#fff}
+.file input{position:absolute;opacity:0;width:1px;height:1px}
+.file span{color:var(--mut)}
+button{font:inherit;font-weight:700;background:var(--acc);color:#fff;border:0;border-radius:10px;padding:14px 18px;cursor:pointer}
+button:hover{background:#5e0f1d}
+.preview{position:sticky;top:16px;text-align:center}
+canvas{width:100%;max-width:440px;height:auto;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.25);background:#222}
+.hint{color:var(--mut);font-size:.9rem;margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>BigEvent’s</h1>
+  <p>Créez votre badge « J’y serai » et partagez-le.</p>
+</header>
+<main>
+  <form id="f" onsubmit="return false">
+    <fieldset>
+      <legend>Événement</legend>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="ev" value="holliday" checked>HOLLIDAY PARTY<small>Rouge, or et sapin</small></label>
+        <label class="opt"><input type="radio" name="ev" value="kaki">TOUS EN KAKI<small>Tons kaki et sable</small></label>
+      </div>
+    </fieldset>
+    <div>
+      <label class="t" for="nom">Nom</label>
+      <input type="text" id="nom" maxlength="30" placeholder="Ex. : Aïcha Dossou" autocomplete="name">
+    </div>
+    <fieldset>
+      <legend>Genre</legend>
+      <div class="opts two">
+        <label class="opt"><input type="radio" name="g" value="f" checked>Femme</label>
+        <label class="opt"><input type="radio" name="g" value="h">Homme</label>
+      </div>
+    </fieldset>
+    <div>
+      <span class="t" style="font-weight:700;display:block;margin-bottom:8px">Photo</span>
+      <label class="file"><input type="file" id="photo" accept="image/*"><strong>Choisir une photo</strong><br><span id="fname">JPG, PNG ou WebP</span></label>
+    </div>
+    <button type="button" id="dl">Télécharger le badge (JPG)</button>
+  </form>
+  <div class="preview">
+    <canvas id="c" width="1080" height="1350" aria-label="Aperçu du badge"></canvas>
+    <p class="hint">L’aperçu se met à jour à chaque modification.</p>
+  </div>
+</main>
+<script>
+(function(){
+  var W=1080,H=1350,cv=document.getElementById('c'),x=cv.getContext('2d'),img=null;
+  var T={
+    holliday:{name:'HOLLIDAY PARTY',bg1:'#7a1226',bg2:'#2a0610',acc:'#f4c45a',ink:'#fff6e2',rib:'#1f6b43',ribInk:'#fff6e2',deco:'snow'},
+    kaki:{name:'TOUS EN KAKI',bg1:'#80804a',bg2:'#383a1e',acc:'#eadfb0',ink:'#faf6e4',rib:'#1d1e0f',ribInk:'#eadfb0',deco:'camo'}
+  };
+  var HEAD='Impact,"Arial Black","Helvetica Neue",sans-serif',SERIF='Georgia,"Times New Roman",serif';
+  function rnd(seed){return function(){seed=(seed*16807)%2147483647;return(seed-1)/2147483646}}
+  function fit(txt,font,max,size,weight){
+    do{x.font=(weight||'')+' '+size+'px '+font;size-=4}while(x.measureText(txt).width>max&&size>20);
+    return size
+  }
+  function rr(a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath()}
+  function draw(){
+    var ev=T[document.querySelector('input[name=ev]:checked').value];
+    var g=document.querySelector('input[name=g]:checked').value;
+    var nom=document.getElementById('nom').value.trim()||'Votre nom';
+    var gr=x.createLinearGradient(0,0,0,H);gr.addColorStop(0,ev.bg1);gr.addColorStop(1,ev.bg2);
+    x.fillStyle=gr;x.fillRect(0,0,W,H);
+    var r=rnd(42),i;
+    if(ev.deco==='snow'){
+      for(i=0;i<110;i++){x.globalAlpha=.25+r()*.6;x.fillStyle='#fff';x.beginPath();x.arc(r()*W,r()*H,2+r()*7,0,6.283);x.fill()}
+    }else{
+      var cols=['#4d4f28','#a29b63','#2f3119','#6a6a38'];
+      for(i=0;i<22;i++){x.globalAlpha=.35;x.fillStyle=cols[i%4];x.beginPath();x.ellipse(r()*W,r()*H,60+r()*130,30+r()*70,r()*3,0,6.283);x.fill()}
+    }
+    x.globalAlpha=1;
+    x.strokeStyle=ev.acc;x.lineWidth=6;rr(36,36,W-72,H-72,28);x.stroke();
+    x.textAlign='center';x.textBaseline='middle';
+    x.fillStyle=ev.acc;x.font='italic 700 46px '+SERIF;x.fillText('BigEvent’s',W/2,104);
+    var s=fit(ev.name,HEAD,900,150);x.fillStyle=ev.ink;x.fillText(ev.name,W/2,235);
+    var cx=W/2,cy=600,R=250;
+    x.fillStyle=ev.acc;x.beginPath();x.arc(cx,cy,R+18,0,6.283);x.fill();
+    x.save();x.beginPath();x.arc(cx,cy,R,0,6.283);x.clip();
+    if(img){
+      var k=Math.max(2*R/img.width,2*R/img.height),w=img.width*k,h=img.height*k;
+      x.drawImage(img,cx-w/2,cy-h/2,w,h);
+    }else{
+      x.fillStyle='rgba(0,0,0,.35)';x.fillRect(cx-R,cy-R,2*R,2*R);
+      x.fillStyle='rgba(255,255,255,.5)';x.beginPath();x.arc(cx,cy-50,85,0,6.283);x.fill();
+      x.beginPath();x.ellipse(cx,cy+210,170,150,0,0,6.283);x.fill();
+    }
+    x.restore();
+    fit(nom,HEAD,880,110);x.fillStyle=ev.ink;x.fillText(nom.toUpperCase(),W/2,975);
+    x.fillStyle=ev.acc;x.font='italic 400 46px '+SERIF;x.fillText(g==='f'?'Participante':'Participant',W/2,1045);
+    x.fillStyle=ev.rib;rr(160,1100,760,140,70);x.fill();
+    x.strokeStyle=ev.acc;x.lineWidth=5;rr(160,1100,760,140,70);x.stroke();
+    fit('J’Y SERAI !',HEAD,660,104);x.fillStyle=ev.ribInk;x.fillText('J’Y SERAI !',W/2,1173);
+  }
+  document.getElementById('f').addEventListener('input',draw);
+  document.getElementById('photo').addEventListener('change',function(e){
+    var f=e.target.files[0];if(!f)return;
+    document.getElementById('fname').textContent=f.name;
+    var fr=new FileReader();
+    fr.onload=function(){
+      var im=new Image();
+      im.onload=function(){img=im;draw()};
+      im.onerror=function(){img=null;document.getElementById('fname').textContent='Format non pris en charge : utilisez un JPG ou un PNG';draw()};
+      im.src=fr.result;
+    };
+    fr.onerror=function(){document.getElementById('fname').textContent='Impossible de lire ce fichier'};
+    fr.readAsDataURL(f);
+  });
+  document.getElementById('dl').addEventListener('click',function(){
+    draw();
+    var a=document.createElement('a'),n=(document.getElementById('nom').value.trim()||'participant').replace(/[^\w\-]+/g,'_');
+    a.href=cv.toDataURL('image/jpeg',.93);a.download='badge-jy-serai-'+n+'.jpg';
+    document.body.appendChild(a);a.click();a.remove();
+  });
+  draw();
+})();
+</script>
+</body>
+</html>
