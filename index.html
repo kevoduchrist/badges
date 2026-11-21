@@ -1,53 +1,75 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#20251b">
-  <title>BigEvent's — Badge TOUS EN KAKI</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="Kévo Store — télécharge les applications et jeux Kev en APK.">
+<title>Kévo Store — APK Hub</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--panel2:#18263d;--text:#f4f7fb;--muted:#aab7ca;--line:#2b3b54;--green:#27d69a;--gold:#ffc857;--blue:#6ea8ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 85% 0%,#18314a 0,transparent 32%),var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{color:inherit}.wrap{width:min(1100px,92%);margin:auto}
+header{padding:20px 0;border-bottom:1px solid var(--line);background:#0b1220d9;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:900;letter-spacing:-.6px}.brandmark{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,var(--green),#087b68);display:grid;place-items:center;color:#061b1a;font-weight:1000;box-shadow:0 6px 22px #27d69a35}.brand span em{font-style:normal;color:var(--green)}nav{display:flex;gap:20px;flex-wrap:wrap}nav a{text-decoration:none;color:var(--muted);font-weight:650;font-size:14px}nav a:hover{color:var(--green)}
+.hero{padding:68px 0 42px;display:grid;grid-template-columns:1.4fr .8fr;gap:30px;align-items:center}.eyebrow{color:var(--green);font-weight:850;text-transform:uppercase;letter-spacing:2px;font-size:12px}.hero h1{font-size:clamp(38px,6vw,64px);line-height:1.02;letter-spacing:-2px;margin:13px 0}.hero h1 span{color:var(--green)}.hero p{color:var(--muted);max-width:620px;font-size:17px}.hero-box{background:linear-gradient(145deg,#1c3450,#111b2c);border:1px solid #35506e;border-radius:24px;padding:25px;box-shadow:0 18px 55px #0004}.hero-box strong{display:block;font-size:23px}.hero-box .big{font-size:45px;margin:8px 0;color:var(--green)}.hero-box small{color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid #28624f;background:#103629;color:#83f1c8;padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:22px 0}.section-head h2{margin:0;font-size:28px;letter-spacing:-.7px}.section-head p{margin:4px 0 0;color:var(--muted)}
+.tools{display:flex;gap:10px;margin:18px 0 22px;flex-wrap:wrap}.tools input,.tools select{background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:12px 14px;font:inherit}.tools input{flex:1;min-width:200px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.app{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;min-height:300px;box-shadow:0 10px 30px #0002}.app-top{display:flex;gap:14px;align-items:center}.app-icon{width:64px;height:64px;flex:0 0 64px;border-radius:18px;background:linear-gradient(145deg,#304b68,#17263b);border:1px solid #45617e;display:grid;place-items:center;overflow:hidden}.app-icon img{width:100%;height:100%;object-fit:cover;display:block}.app h3{font-size:21px;margin:0 0 2px}.category{font-size:12px;color:var(--muted)}.rating{margin-left:auto;text-align:right;white-space:nowrap}.stars{color:var(--gold);font-size:15px;letter-spacing:1px}.rating b{display:block;font-size:19px}.app p{color:#c2cede;margin:17px 0}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}.tag{border:1px solid var(--line);border-radius:999px;padding:5px 9px;color:var(--muted);font-size:11px}.download{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:17px;background:var(--green);color:#06251c;text-decoration:none;font-weight:900;padding:12px;border-radius:12px}.download:hover{filter:brightness(1.08);transform:translateY(-1px)}.download.disabled{background:#34445a;color:#c3cede;cursor:not-allowed}.note{font-size:11px;color:var(--muted);margin-top:9px}
+.how{margin:62px 0 26px}.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}.step b{display:block;color:var(--green);font-size:18px;margin-bottom:7px}.step p{margin:0;color:var(--muted)}
+.notice{border:1px solid #6b5630;background:#2a2418;color:#f6dfaa;border-radius:14px;padding:15px 17px;margin:24px 0}.notice strong{color:#ffcf68}
+footer{margin-top:65px;border-top:1px solid var(--line);padding:26px 0 38px;color:var(--muted);font-size:13px}.footer-row{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.empty{display:none;color:var(--muted);padding:25px;text-align:center;border:1px dashed var(--line);border-radius:15px}
+@media(max-width:720px){.hero{grid-template-columns:1fr;padding-top:45px}.hero-box{max-width:100%}.grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr}nav{gap:12px}.nav{align-items:flex-start;flex-direction:column}.section-head{align-items:flex-start;flex-direction:column}}
+.brand-logo{width:42px;height:42px;object-fit:contain;border-radius:12px;display:block}
+</style>
 </head>
 <body>
-  <main class="app">
-    <header class="top">
-      <div class="brand">BIG<span>EVENT'S</span></div>
-      <p>GÉNÉRATEUR DE BADGES</p>
-    </header>
+<header><div class="wrap nav">
+  <a class="brand" href="#" style="text-decoration:none"><img class="brand-logo" src="kevo-store-logo.png" alt="Logo Kévo Store"><span>Kévo <em>Store</em></span></a>
+  <nav><a href="#applications">Applications</a><a href="#telecharger">Comment télécharger</a><a href="#apropos">À propos</a></nav>
+</div></header>
+<main class="wrap">
+<section class="hero">
+ <div><div class="eyebrow">Le catalogue officiel des applications Kev</div>
+  <h1>Bienvenue sur<br><span>Kévo Store.</span></h1>
+  <p>Découvre les jeux et outils de la collection Kev. Télécharge les fichiers APK et installe-les sur ton appareil Android.</p>
+  <span class="pill">● APK HUB · MODE HORS LIGNE</span>
+ </div>
+ <aside class="hero-box"><small>TA BIBLIOTHÈQUE D'APPLICATIONS</small><div class="big">KS</div><strong>Applications & jeux</strong><small>Les fichiers sont servis localement depuis ce site.</small></aside>
+</section>
 
-    <section class="panel">
-      <div class="intro">
-        <span class="eyebrow">ÉDITION SPÉCIALE</span>
-        <h1>TOUS EN <em>KAKI</em></h1>
-        <p>Crée ton badge personnalisé en quelques secondes.</p>
-      </div>
+<section id="applications">
+ <div class="section-head"><div><div class="eyebrow">À découvrir</div><h2>Applications & jeux</h2><p>Choisis une application pour afficher son fichier APK.</p></div></div>
+ <div class="tools"><input id="search" type="search" placeholder="Rechercher une application…" aria-label="Rechercher"><select id="filter" aria-label="Filtrer"><option value="all">Toutes les catégories</option><option value="Jeu">Jeux</option><option value="Outil">Outils</option></select></div>
+ <div class="grid" id="apps">
+  <article class="app" data-name="KevFruit" data-category="Jeu"><div class="app-top"><div class="app-icon"><img src="kevfruit.jpg" alt="Logo KevFruit"></div><div><h3>KevFruit</h3><div class="category">Jeu · Collection Kev</div></div><div class="rating"><b>4,5/5</b><div class="stars">★★★★★</div></div></div><p>Un jeu de la collection Kev. Lance le jeu et découvre son univers fruité.</p><div class="meta"><span class="tag">Android</span><span class="tag">APK</span><span class="tag">Hors ligne*</span></div><a class="download" href="kevfruit.apk" download data-file="kevfruit.apk">⬇ Télécharger KevFruit</a><div class="note">Note éditoriale provisoire Kévo Store — pas encore une note d'utilisateurs.</div></article>
+  <article class="app" data-name="KevFruit 2" data-category="Jeu"><div class="app-top"><div class="app-icon"><img src="kevfruit2.png" alt="Logo KevFruit 2"></div><div><h3>KevFruit 2</h3><div class="category">Jeu · Collection Kev</div></div><div class="rating"><b>4,7/5</b><div class="stars">★★★★★</div></div></div><p>La deuxième édition de KevFruit. Retrouve l'expérience KevFruit dans cette nouvelle version.</p><div class="meta"><span class="tag">Android</span><span class="tag">APK</span><span class="tag">Hors ligne*</span></div><a class="download" href="kevfruit-2-v1.0.0-3.apk" download data-file="kevfruit-2-v1.0.0-3.apk">⬇ Télécharger KevFruit 2</a><div class="note">Note éditoriale provisoire Kévo Store — pas encore une note d'utilisateurs.</div></article>
+  <article class="app" data-name="KevCard" data-category="Jeu"><div class="app-top"><div class="app-icon"><img src="kevcard.png" alt="Logo KevCard"></div><div><h3>KevCard</h3><div class="category">Jeu · Mémoire</div></div><div class="rating"><b>4,6/5</b><div class="stars">★★★★★</div></div></div><p>Un jeu de mémoire où le but est de retrouver les paires de cartes identiques.</p><div class="meta"><span class="tag">Android</span><span class="tag">APK</span><span class="tag">Hors ligne*</span></div><a class="download" href="kevcard-v1.0.0-1.apk" download data-file="kevcard-v1.0.0-1.apk">⬇ Télécharger KevCard</a><div class="note">Note éditoriale provisoire Kévo Store — pas encore une note d'utilisateurs.</div></article>
+  <article class="app" data-name="KevBord" data-category="Outil"><div class="app-top"><div class="app-icon"><img src="kevbord.png" alt="Logo KevBord"></div><div><h3>KevBord</h3><div class="category">Outil · Finance</div></div><div class="rating"><b>4,8/5</b><div class="stars">★★★★★</div></div></div><p>Un outil de calcul d'amortissement pour préparer et consulter des simulations de crédit.</p><div class="meta"><span class="tag">Android</span><span class="tag">APK</span><span class="tag">Hors ligne*</span></div><a class="download" href="kevbord-v1.0.0-1.apk" download data-file="kevbord-v1.0.0-1.apk">⬇ Télécharger KevBord</a><div class="note">Note éditoriale provisoire Kévo Store — pas encore une note d'utilisateurs.</div></article>
+ </div>
+ <div class="empty" id="empty">Aucune application ne correspond à ta recherche.</div>
+</section>
 
-      <form id="badgeForm">
-        <label for="fullname">Nom et prénom</label>
-        <input id="fullname" name="fullname" type="text" placeholder="Ex. : Abel Pichichi" maxlength="40" required>
-
-        <label for="gender">Sexe / Genre</label>
-        <select id="gender" name="gender" required>
-          <option value="">Choisir</option>
-          <option value="HOMME">Homme</option>
-          <option value="FEMME">Femme</option>
-          <option value="AUTRE">Autre</option>
-        </select>
-
-        <label for="photo">Photo du participant</label>
-        <input id="photo" name="photo" type="file" accept="image/*" required>
-        <small>Choisis une photo nette (JPG, PNG ou WEBP — 8 Mo maximum).</small>
-
-        <button type="submit" class="primary">GÉNÉRER MON BADGE</button>
-      </form>
-
-      <div id="status" class="status" role="status"></div>
-      <div id="result" class="result" hidden>
-        <canvas id="badgeCanvas" width="1200" height="820"></canvas>
-        <button id="downloadBtn" class="download" type="button">TÉLÉCHARGER LE BADGE JPG</button>
-      </div>
-    </section>
-    <footer>© BigEvent's — TOUS EN KAKI</footer>
-  </main>
-  <script src="script.js"></script>
-</body>
-</html>
+<section class="how" id="telecharger">
+ <div class="section-head"><div><div class="eyebrow">Guide pratique</div><h2>Comment télécharger un APK ?</h2><p>En quelques étapes simples sur Android.</p></div></div>
+ <div class="how-grid">
+  <div class="step"><b>01 · Choisir</b><p>Parcours les applications ci-dessus et appuie sur le bouton « Télécharger » de celle que tu veux installer.</p></div>
+  <div class="step"><b>02 · Télécharger</b><p>Attends la fin du téléchargement du fichier APK. Tu le retrouveras généralement dans le dossier « Téléchargements ».</p></div>
+  <div class="step"><b>03 · Installer</b><p>Ouvre le fichier APK. Si Android le demande, autorise temporairement ton navigateur ou ton gestionnaire de fichiers à installer des applications inconnues, puis confirme l'installation.</p></div>
+ </div>
+ <div class="notice"><strong>Conseil de sécurité :</strong> installe uniquement les APK dont tu connais la provenance. Android peut afficher un avertissement pour les applications installées en dehors du Play Store. Vérifie le nom du fichier avant de confirmer et désactive ensuite l'autorisation d'installation depuis cette source si tu n'en as plus besoin.</div>
+</section>
+<section id="apropos" style="padding:12px 0 35px"><div class="eyebrow">À propos</div><h2>Kévo Store, la maison des applis Kev.</h2><p style="color:var(--muted);max-width:760px">Kévo Store est un catalogue conçu pour présenter et distribuer les applications et jeux de la collection Kev. De nouvelles applications seront ajoutées régulièrement.</p></section>
+</main>
+<footer><div class="wrap footer-row"><span>© <span id="year"></span> Kévo Store · Collection Kev</span><span>Catalogue APK · Interface autonome</span></div></footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const search=document.getElementById('search'),filter=document.getElementById('filter'),cards=[...document.querySelectorAll('.app')],empty=document.getElementById('empty');
+function apply(){const q=search.value.trim().toLowerCase(),cat=filter.value;let n=0;cards.forEach(c=>{const ok=c.dataset.name.toLowerCase().includes(q)&&(cat==='all'||c.dataset.category===cat);c.style.display=ok?'flex':'none';if(ok)n++});empty.style.display=n?'none':'block'}
+search.addEventListener('input',apply);filter.addEventListener('change',apply);
+// Alerte utile si un APK n'a pas été placé à côté du fichier HTML.
+document.querySelectorAll('[data-file]').forEach(link=>link.addEventListener('click',e=>{if(link.getAttribute('href').includes('\u200b')){e.preventDefault();alert('Corrige le nom du fichier APK dans le dossier du site, puis réessaie.');}}));
+</script>
+</body></html>
